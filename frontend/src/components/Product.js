@@ -9,8 +9,6 @@ const Product = ({
   description,
   price,
   image,
-  brand,
-  category,
   rating,
   countInStock,
   numReviews,

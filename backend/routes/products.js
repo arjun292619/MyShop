@@ -11,7 +11,6 @@ router.get(
   '/',
   asyncHandler(async (req, res, next) => {
     const products = await Product.find();
-
     res
       .status(200)
       .json({ success: true, length: products.length, data: products });
