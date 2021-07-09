@@ -1,0 +1,12 @@
+main {
+  min-height: 80vh;
+}
+
+.main-height {
+  min-height: 80vh;
+}
+
+.main-clearance {
+  margin-top: 0.5rem;
+  padding: 1rem;
+}

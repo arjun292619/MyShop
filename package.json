@@ -1,0 +1,30 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "Backend Application for proshop",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server \" \"npm run client \"",
+    "seed:data": "node backend/seeder -i",
+    "purge:data": "node backend/seeder -d"
+  },
+  "author": "JC Arjun",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.9"
+  }
+}
