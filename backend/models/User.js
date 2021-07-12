@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,13 +23,14 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please add a name'],
+      required: [true, 'Please add a password'],
       trim: true,
       minLength: [5, 'password cannot be less than 5 characters'],
+      select: false,
     },
     isAdmin: {
       type: Boolean,
-      required: [true, 'Please add a name'],
+      required: true,
       trim: true,
       default: false,
     },
@@ -39,6 +42,28 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+userSchema.methods.verifyPassword = async function (inputPassword) {
+  const isVerified = await bcrypt.compare(inputPassword, this.password);
+  console.log(inputPassword, this.password);
+  return isVerified;
+};
+
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+  return token;
+};
 
 const User = mongoose.model('User', userSchema);
 

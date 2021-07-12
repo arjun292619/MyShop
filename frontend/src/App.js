@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Header, Footer } from './components';
-import { Home, Products, ProductDetail } from './pages';
+import { Home, Products, ProductDetail, Cart } from './pages';
 
 const App = () => {
   return (
@@ -11,10 +11,13 @@ const App = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/product">
+        <Route exact path="/products">
           <Products />
         </Route>
-        <Route exact path="/product/:id" children={<ProductDetail />} />
+        <Route exact path="/products/:id" children={<ProductDetail />} />
+        <Route path="/cart/:id?">
+          <Cart />
+        </Route>
       </Switch>
       <Footer />
     </Router>

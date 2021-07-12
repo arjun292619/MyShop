@@ -13,6 +13,7 @@ dotenv.config({ path: './backend/config/config.env' });
 
 //Route Modules
 import productRoutes from './routes/products.js';
+import authRoutes from './routes/auth.js';
 
 //connect to MongoDB
 connectDB();
@@ -29,6 +30,7 @@ app.use(express.json());
 
 //Mount Routers
 app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);
 
 //page not found error
 app.use((req, res, next) => {
@@ -46,4 +48,13 @@ app.listen(PORT, () => {
     `Backend Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
       .yellow.bold
   );
+});
+
+//handle Unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`.red);
+  //Close the server and exit the process
+  server.close(() => {
+    process.exit(1);
+  });
 });

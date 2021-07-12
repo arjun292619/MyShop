@@ -18,6 +18,10 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(msg, 404);
   }
 
+  //Need to add validation error: error.name==='ValidatorError'
+
+  //Need to add duplicate or unique field error code: 11000,
+
   const { statusCode, message } = error;
 
   res
