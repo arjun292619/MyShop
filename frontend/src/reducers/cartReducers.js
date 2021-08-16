@@ -1,6 +1,23 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_CALCULATE_PRICES,
+} from '../constants/cartConstants';
 
-export const cartReducer = (state = { cartItems: [] }, action) => {
+export const cartReducer = (
+  state = {
+    cartItems: [],
+    shippingAddress: null,
+    paymentMethod: '',
+    itemsPrice: 0,
+    shippingPrice: 0,
+    taxPrice: 0,
+    totalPrice: 0,
+  },
+  action
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const existItem = state.cartItems.find((item) => {
@@ -22,7 +39,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       } else {
         return { ...state, cartItems: [...state.cartItems, action.payload] };
       }
-
     case CART_REMOVE_ITEM:
       return {
         ...state,
@@ -30,7 +46,14 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           return cartItem.productId !== action.payload;
         }),
       };
-
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return { ...state, shippingAddress: action.payload };
+    case CART_SAVE_PAYMENT_METHOD:
+      return { ...state, paymentMethod: action.payload };
+    case CART_CALCULATE_PRICES:
+      const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
+        action.payload;
+      return { ...state, itemsPrice, shippingPrice, taxPrice, totalPrice };
     default:
       return state;
   }

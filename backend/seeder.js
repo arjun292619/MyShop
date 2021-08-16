@@ -39,8 +39,8 @@ const importData = async () => {
 
     await productModel.create(updatedProducts);
 
-    process.exit(0);
     console.log(`Data imported to DB...`.green.inverse);
+    process.exit(0);
   } catch (error) {
     console.log(`${error}`.red.inverse);
     process.exit(1);

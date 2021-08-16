@@ -5,6 +5,9 @@ import {
   PRODUCT_DETAILS_BEGIN,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_ERROR,
+  PRODUCT_DELETE_BEGIN,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_ERROR,
 } from '../constants/productConstants';
 import axios from 'axios';
 

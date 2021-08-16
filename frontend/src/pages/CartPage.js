@@ -5,7 +5,6 @@ import {
   Col,
   Card,
   Image,
-  Form,
   Button,
   ListGroup,
   FormControl,
@@ -39,7 +38,7 @@ const CartPage = () => {
 
   const checkoutHandler = () => {
     console.log('Checkout');
-    history.push('/login?redirect=shipping');
+    history.push('/shipping');
     return;
   };
 

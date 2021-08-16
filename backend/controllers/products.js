@@ -23,3 +23,18 @@ export const getProductById = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: product });
 });
+
+// @desc Delete a product
+// @route DELETE /api/products/:id
+// @access Private/admin
+export const deleteProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(err);
+  }
+
+  await product.remove();
+
+  res.status(200).json({ success: true, data: { message: 'product removed' } });
+});

@@ -29,3 +29,16 @@ export const protectRoute = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Not authorized to access this route', 401));
   }
 });
+
+export const adminOnly = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    return next(
+      new ErrorResponse(
+        'Not authorized to access this route. Admins only.',
+        400
+      )
+    );
+  }
+};
